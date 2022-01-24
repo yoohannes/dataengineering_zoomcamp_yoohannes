@@ -1,0 +1,46 @@
+Question 3:
+select 
+ count(*)
+from 
+	yellow_taxi_trips
+where 
+	EXTRACT(day from tpep_pickup_datetime )=15 and 
+	EXTRACT(month from tpep_pickup_datetime )=01
+
+
+Question 4:
+
+select
+ yellow_taxi_trips.tpep_pickup_datetime,yellow_taxi_trips.tip_amount
+from 
+	yellow_taxi_trips
+where  
+	EXTRACT(month from tpep_pickup_datetime )=01
+order by 2 desc
+limit 1
+
+
+Question 5:
+
+select 
+	t."DOLocationID",zdo."Zone",count(*) as c
+from 
+	yellow_taxi_trips t 
+inner join taxizone zpu 
+on 
+	t."PULocationID" = zpu."LocationID"
+inner join taxizone zdo
+ on 
+ 	t."DOLocationID" = zdo."LocationID"
+where 
+zpu."Zone" like 'Central Park%' 
+and 
+EXTRACT(day from tpep_pickup_datetime )=14 and 
+EXTRACT(month from tpep_pickup_datetime )=01
+group by 
+1,2
+order by 
+c desc
+
+
+Question 6 :
