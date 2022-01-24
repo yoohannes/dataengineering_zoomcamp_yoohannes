@@ -44,3 +44,20 @@ c desc
 
 
 Question 6 :
+
+select 
+case
+	when zdo."Zone" is not NULL
+	then concat(zpu."Zone",'/' ,zdo."Zone") 
+	else concat(zpu."Zone",'/' ,'unknown') 
+end as pair ,count(1),avg(t."total_amount")
+from 
+	yellow_taxi_trips t 
+inner join taxizone zpu 
+on 
+	t."PULocationID" = zpu."LocationID"
+inner join taxizone zdo
+ on 
+ 	t."DOLocationID" = zdo."LocationID"
+group by 1
+order by 3 desc
